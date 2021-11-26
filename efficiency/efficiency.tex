@@ -1,5 +1,43 @@
 \documentclass[note.tex]{subfiles}
 
 \begin{document}
-hi
+
+\section{Formalism}
+\begin{itemize}
+    \item Probably say something about the rates we're measuring
+    \item This means we need to find the efficiency
+    \item MC sample
+    \item Talk about phase space dimensionality
+    \item Phase space parameterisation
+\end{itemize}
+
+\section{Reweighting Strategy}
+\begin{itemize}
+    \item Find efficiency by reweighting MC to AmpGen
+    \item MC and AmpGen samples
+          \begin{itemize}
+              \item Want a single reweighter to reweight both RS and WS
+              \item Need to have the right amount of each
+              \item Use the amplitude models to find out the proportion of RS and WS that were generated
+              \item Algebra
+          \end{itemize}
+    \item Split data into time bins
+          \begin{itemize}
+              \item Below lowest bin, just throw away because time weight would be too high...
+              \item Might be possible to just ignore phsp efficiency for this bin? or do an average or something?
+              \item In each time bin - 5d phsp BDT * 1d histogram division
+          \end{itemize}
+    \item BDT Reweighter in each time bin
+    \item Histogram division in each time bin
+\end{itemize}
+
+\section{Validation}
+\begin{itemize}
+    \item Projections
+    \item Alternate projections
+    \item Classifiers
+    \item Z scatters
+\end{itemize}
+
+
 \end{document}
