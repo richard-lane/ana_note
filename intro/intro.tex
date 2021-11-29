@@ -3,10 +3,57 @@
 \begin{document}
 
 \section{Intro}
-\begin{itemize}
-    \item Say what the point is
-    \item Decay channel
-\end{itemize}
+Measurement of the CKM angle $\gamma$ is a vital goal of the LHCb experiment and of flavour physics in general[TODO],
+and is an excellent test of the standard model since the theoretical uncertainty on $\gamma$ measured from $B\rightarrow DK$ decays is small.
+The $K\pi\pi\pi$ final state was chosen for this analysis as the ampltiude structure is expected to lead to an especially precise measurement of $\gamma$[TODO].
+
+The $B \rightarrow DK \rightarrow f$ family of decays, where $f$ denotes a common final state,
+provide several ways of measuring the CKM phase $\gamma$. In all cases, sensitivity to
+$\gamma$ arises from interference between the intermediary $B \rightarrow DK$ decay amplitudes.
+This is seen in the Feynman diagrams, Fig~\ref{fig:bucs}.
+
+\begin{figure}[htb!]
+    \begin{subfigure}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/bQuark.png}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/bQuarkSuppressed.png}
+    \end{subfigure}
+    \caption{Feynman diagrams showing $b$ quark transitions for the favoured (left) and suppressed (right) amplitudes $B^-\rightarrow D^0 K^-$ and $B^-\rightarrow \overline{D}^0 K^-$.
+        The $b\rightarrow u$ transition is suppressed by a factor of $V_{ub}$, which introduces a relative weak phase $\gamma$.
+        The sign of this phase is reversed for the CP-conjugate $B^+$ decay.}
+    \label{fig:bucs}
+\end{figure}
+
+The ratio of suppressed to favoured $B^\pm \rightarrow DK^\pm$ amplitudes is seen in Eq. \ref{B ratio eqn}.
+\begin{equation}
+    \label{B ratio eqn}
+    \frac{\mathcal{A}^\pm_{supp}}{\mathcal{A}^\pm_{fav}}= r_B{\rm e}^{\delta_B \pm \gamma}
+\end{equation}
+
+Since $r_B$ is small ($\sim 0.1$[TODO]), the overall interference effect is enhanced if the final state is chosen such that the $D^0\
+\rightarrow f$ amplitude is suppressed and $\overline{D}^0\rightarrow f$ favoured (or vice-versa) (the ADS method[TODO]).
+
+For example, the $B^- \rightarrow (D \rightarrow K \pi \pi \pi) K^-$ decays proceed via the routes seen in Fig. \ref{b mixing}.
+
+\begin{figure}[htb!]
+    \begin{subfigure}[htb!]{0.5\linewidth}
+        \includegraphics[width=\textwidth]{img/favbMixingDiagram.png}
+    \end{subfigure}
+    \begin{subfigure}[htb!]{0.5\linewidth}
+        \includegraphics[width=\textwidth]{img/bMixingDiagram.png}
+    \end{subfigure}
+    \caption{Diagram showing the amplitudes contributing to $B^-\rightarrow K^-(K3\pi)$ via $DK^-$.
+        The decay to $K^-\pi^+\pi^+\pi^-$ (left) is completely dominated by the favoured amplitudes (thick arrows), making it a good normalisation mode.
+        The decay to $K^+\pi^-\pi^-\pi^+$ (right) is sensitive to the weak phase $\gamma$, as both the decays via $D^0K^-$ and $\overline{D}^
+0K^-$ contribute.
+    }
+    \label{b mixing}
+\end{figure}
+
+
 
 \section{Charm Mixing}
 \begin{itemize}
