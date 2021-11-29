@@ -10,6 +10,19 @@
     \item Fit example
     \item 2d scan example
 \end{itemize}
+\subsection{Parameter Counting}
+Eqs \ref{Gamma eqn minus} and \ref{Gamma eqn plus} are used to measure $\gamma$.
+Taking $\Gamma_D$, $x$ and $y$ from external input, we find there are three unknown parameters that are the same in all regions of phase space ($\gamma$, $r_B$ and $\delta_B$) and three parameters that are different between regions ($r_{D, \Omega}$ and two real components of $Z_\Omega^f$).
+We therefore have $3N + 3$ unknowns for $N$ regions of phase space.
+Fitting to Eq. \ref{amplitudeRatio} in each region gives us $2N$ constraints; Eqs. \ref{Gamma eqn minus} and \ref{Gamma eqn plus} provide a further $2N$ constraints.
+We therefore have $4N$ constraints for $3N + 3$ unknowns; we need at least $N\geq 3$ phase space bins to extract all parameters from data.
+
+In principle, any binning scheme can be used to divide the final state phase space into regions.
+However, recent developments in $D\rightarrow K \pi \pi \pi$ amplitude models[TODO] enable us to make a model-informed binning in order to make best use of the data.
+By binning the data according to the phase difference between the DCS and CF amplitude models at each point,
+we find higher coherence in each bin than if we were integrating over the phase space.
+This improves the sensitivity to $\gamma$; using this binning scheme is expected to give a precision as low as 5\degree[TODO].
+
 
 \section{Fitter Validation}
 \begin{itemize}
