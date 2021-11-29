@@ -2,14 +2,42 @@
 
 \begin{document}
 
-\section{Formalism}
-\begin{itemize}
-    \item Probably say something about the rates we're measuring
-    \item This means we need to find the efficiency
-    \item MC sample
-    \item Talk about phase space dimensionality
-    \item Phase space parameterisation
-\end{itemize}
+\section{Efficiency Correction}
+\subsection{Formalism}
+Fitting to Eq.~\ref{rateRatio} requires us to correct for the decay-time detector efficiency.
+To first order we assume efficiency effects will cancel when we take the ratio, but a full correction of the detector efficiency is attempted here [TODO why?].
+Performing the analysis in several phase space bins also requires us to correct for any phase-space dependent efficiency.
+Since the phase space of a four-body decay is five dimensional, this gives us an efficiency function defined on a six-dimensional space.
+The efficiency $\epsilon(\mathbf{\psi}, t)$ is assumed to only be a function of phase space point $\mathbf{\psi}$, and assumed not to depend on the charge of the hadrons.
+[TODO This assumption should be validated].
+
+The efficiency is extracted from simulation, using LHCb Monte Carlo (MC) [TODO specify further].
+MC was generated for $D^* \rightarrow D^0(\rightarrow K^\pm \pi^\mp \pi^\pm \pi^\mp)\pi$ decays, using AmpGen[TODO] amplitude models to generate the $D\rightarrow K 3\pi$ events.
+It is assumed that the only difference between MC and the amplitude model used to generate it is the detector efficiency $\epsilon(\mathbf{psi}, t)$; Eq.~\ref{efficiency}.
+\begin{equation}
+    \epsilon(\mathbf{\psi}, t) = \frac{\Gamma^{\mathrm{MC}}(\mathbf{\psi}, t)}{\Gamma^{\mathrm{model}}}
+    \label{efficiency}
+\end{equation}
+
+Because there are four particles in the final state, the full kinematics are described by 16 scalars (four four-vectors).
+Conservation laws give eight constraints.
+A further three constraints can be obtrained by setting the orientation of the $z$ axis and the $x-z$ plane, leaving us with 5 parameters.
+This gives us our 5d final state phase space.
+This space can be parameterised in several ways - the parameterisation chosen for performing the reweighting is detailed in [TODO], and uses the following variables:
+
+\begin{equation}
+    \label{CM Parameterisation}
+    \begin{aligned}
+        M(K^\pm\pi^\pm)\quad
+        M(\pi^\mp\pi^\mp)\\
+        cos(\theta_+)\qquad
+        cos(\theta_-)\qquad
+        \phi
+    \end{aligned}
+\end{equation}
+
+[TODO diagram of angles and stuff] These variables are defined in Fig.~[TODO] and ref [TODO].
+
 
 \section{Reweighting Strategy}
 \begin{itemize}
