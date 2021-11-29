@@ -23,6 +23,28 @@ By binning the data according to the phase difference between the DCS and CF amp
 we find higher coherence in each bin than if we were integrating over the phase space.
 This improves the sensitivity to $\gamma$; using this binning scheme is expected to give a precision as low as 5\degree[TODO].
 
+\subsection{Fit Strategy}
+\begin{itemize}
+    \item Unconstrained Fit chi2
+    \item Constrained fit chi2
+    \item CLEO + constrained chi2
+\end{itemize}
+The charm interference parameter $Z_\Omega^f$ must be extracted from Eq. \ref{rateRatio} in order to measure $\gamma$.
+Practically, this is done by measuring the number of wrong sign (``WS''; Eq.~\ref{approxDRate}) and right sign (``RS''; Eq.~\ref{approxDBarRate})
+events in bins of decay time and finding the parameters that best fit the ratio of counts.
+A binned $\chi^2$ fit is used for this analysis. The $\chi^2$ is defined in Eq.~\ref{Unconstrained Chi2}.
+
+\begin{equation}
+    \chi^2 = \sum_{bins}\left[\frac{R^{exp}_{bin} - R^{meas}_{bin}}{\sigma_{bin}}\right]^2
+    \label{Unconstrained Chi2}
+\end{equation}
+
+Where:
+\begin{equation}
+    R^{exp}_{bin} = \frac{\int_{bin}\Gamma^{WS}(t; r_D, x, y, Z_\Omega^f, \Gamma_D)dt}{\int_{bin}\Gamma^{RS}(t; r_D, x, y, Z_\Omega^f, \Gamma_D)dt}
+    \label{Expected Bin Population}
+\end{equation}
+
 
 \section{Fitter Validation}
 \begin{itemize}
