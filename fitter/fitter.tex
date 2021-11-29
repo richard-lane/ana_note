@@ -3,14 +3,8 @@
 \begin{document}
 
 \section{Charm Fitter}
-\begin{itemize}
-    \item Parameter count
-    \item Fit strategy
-    \item Talk about 2d scan
-    \item Fit example
-    \item 2d scan example
-\end{itemize}
 \subsection{Parameter Counting}
+\label{Parameter Counting}
 Eqs \ref{Gamma eqn minus} and \ref{Gamma eqn plus} are used to measure $\gamma$.
 Taking $\Gamma_D$, $x$ and $y$ from external input, we find there are three unknown parameters that are the same in all regions of phase space ($\gamma$, $r_B$ and $\delta_B$) and three parameters that are different between regions ($r_{D, \Omega}$ and two real components of $Z_\Omega^f$).
 We therefore have $3N + 3$ unknowns for $N$ regions of phase space.
@@ -24,18 +18,13 @@ we find higher coherence in each bin than if we were integrating over the phase 
 This improves the sensitivity to $\gamma$; using this binning scheme is expected to give a precision as low as 5\degree[TODO].
 
 \subsection{Fit Strategy}
-\begin{itemize}
-    \item Unconstrained Fit chi2
-    \item Constrained fit chi2
-    \item CLEO + constrained chi2
-\end{itemize}
 The charm interference parameter $Z_\Omega^f$ must be extracted from Eq. \ref{rateRatio} in order to measure $\gamma$.
 Practically, this is done by measuring the number of wrong sign (``WS''; Eq.~\ref{approxDRate}) and right sign (``RS''; Eq.~\ref{approxDBarRate})
 events in bins of decay time and finding the parameters that best fit the ratio of counts.
 A binned $\chi^2$ fit is used for this analysis. The $\chi^2$ is defined in Eq.~\ref{Unconstrained Chi2}.
 
 \begin{equation}
-    \chi^2 = \sum_{bins}\left[\frac{R^{exp}_{bin} - R^{meas}_{bin}}{\sigma_{bin}}\right]^2
+    \chi^2_0 = \sum_{bins}\left[\frac{R^{exp}_{bin} - R^{meas}_{bin}}{\sigma_{bin}}\right]^2
     \label{Unconstrained Chi2}
 \end{equation}
 
@@ -44,6 +33,69 @@ Where:
     R^{exp}_{bin} = \frac{\int_{bin}\Gamma^{WS}(t; r_D, x, y, Z_\Omega^f, \Gamma_D)dt}{\int_{bin}\Gamma^{RS}(t; r_D, x, y, Z_\Omega^f, \Gamma_D)dt}
     \label{Expected Bin Population}
 \end{equation}
+
+As mentioned in Section~\ref{Parameter Counting}, we can take $x$ and $y$ from external input.
+This can be done by modifying the $\chi^2$ as in Eq.~\ref{Constrained Chi2}.
+
+\begin{equation}
+    \chi^2_{\mathrm{constrained}} = \chi^2_0 + \frac{1}{1 - \sigma_{xy}^2}\left(\frac{(x-x_0)^2}{\sigma_x^2}+\frac{(y-y_0)^2}{\sigma_y^2}-\frac{2\sigma_{xy}(x-x_0)(y-y_0)}{\sigma_x\sigma_y}\right)
+    \label{Constrained Chi2}
+\end{equation}
+
+Where $\sigma_x$, $\sigma_y$ and $\sigma_xy$ represent the uncertainties and correlations on the world average
+measurements of $x$ and $y$, denoted $x_0$ and $y_0$.
+
+It is also possible introduce the constraint on $Z_\Omega^f$ from charm threshhold data by modifying the $\chi^2$.
+This is done as follows for the CLEO data by using the CLEO likelihood $L^\mathrm{CLEO}$; Eq.~\ref{CLEO Likelihood}.
+
+\begin{equation}
+    \chi^2_{\mathrm{CLEO}} = \chi^2_{\mathrm{constrained}} - 2 L^\mathrm{CLEO}(r_D, x, y, Z_\Omega^f)
+    \label{CLEO Likelihood}
+\end{equation}
+
+A similar treatment can be used to introduce the constraint from BES-III.
+
+An example of a fit to Eq.~\ref{rateRatio} in time bins is seen in Fig.~\ref{exampleFit}.
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{img/exampleFit.png}
+    \caption{An example of the fit to Eq. \ref{rateRatio}.
+        Toy decay times were generated according to Eqs. \ref{approxDRate} and \ref{approxDBarRate} and a fit was performed.
+        Horizontal error bars show the bins in decay time used; vertical error bars show the error in the ratio.
+        Parameters $r_D$ and $Re(Z_\Omega^f)$ were allowed to float in this fit; $x$ and $y$ were constrained using their known[TODO] world averages and uncertainties,
+        and $\Gamma_D$ and $Im(Z_\Omega^f)$ were fixed to their true values.
+    }
+    \label{exampleFit}
+\end{figure}
+
+\subsection{$Z_\Omega^f$ Scan}
+The purpose of this fitter is to find a constraint on the charm interference parameter $Z_\Omega^f$.
+There are three free parameters in Eq. \ref{rateRatio} ($r_{D, \Omega}$ and two components of $Z_\Omega^f$);
+the fit provides two constraints. We therefore cannot extract a single best-fit value of $Z_\Omega^f$, but can only restrict $Z_\Omega^f$ to a region in the $Im(Z_\Omega^f) - Re(Z_\Omega^f)$ plane.
+Examples of $\chi^2$ scans over possible values of $Z_\Omega^f$ using this fitter are seen in Fig. \ref{Z scans}.
+
+\begin{figure}[htb!]
+    \begin{subfigure}[htb!]{0.3\linewidth}
+        \includegraphics[width=\textwidth]{img/mixing.png}
+        \caption{Pure D mixing}
+        \label{mixing scan}
+    \end{subfigure}
+    \begin{subfigure}[htb!]{0.3\linewidth}
+        \includegraphics[width=\textwidth]{img/cleo.png}
+        \caption{CLEO-c constraint}
+    \end{subfigure}
+    \begin{subfigure}[htb!]{0.3\linewidth}
+        \includegraphics[width=\textwidth]{img/combined.png}
+        \caption{Combination}
+    \end{subfigure}
+    \centering
+    \caption{$\chi^2$ scans showing constraints on $Z_\Omega^f$.
+        Each coloured band represents $1/2/3\sigma$, i.e. 39/86/99\% probability.
+        The fit from pure D mixing (Eq. \ref{rateRatio}) is on the left, the constraint from CLEO-c[TODO] in the middle and their combination on the right.
+        2,000,000 events were simulated for the D-mixing input.
+        The combination gives a tighter constraint on $Z_\Omega^f$ than either method individually, allowing for a more precise $\gamma$ measurement.}
+    \label{Z scans}
+\end{figure}
 
 
 \section{Fitter Validation}
