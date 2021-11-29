@@ -65,5 +65,87 @@ For example, the $B^- \rightarrow (D \rightarrow K \pi \pi \pi) K^-$ decays proc
     \item RS and WS decay rates
     \item Ratio
 \end{itemize}
+D mesons are produced at the LHC as flavour eigenstates $D^0$ or $\overline{D}^0$.
+Feynman diagrams for decays to $K^+ \pi^-$ are seen in Fig. \ref{d Feynman} - the $K^+ \pi^- \pi^- \pi^+$ diagrams are similar.
+
+\begin{figure}[htb!]
+    \begin{subfigure}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/rightSignD.png}
+        \caption{}
+        \label{CF}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/wrongSignD.png}
+        \caption{}
+        \label{DCS}
+    \end{subfigure}
+    \caption{Two Feynman diagrams showing possible decays $D^0 \rightarrow K^\mp \pi^\pm$.
+        The Cabibbo favoured diagram (left) contains interactions between same-generation quarks.
+        The right-hand diagram contains two vertices involving off-diagonal CKM matrix elements, so it is known as doubly Cabibbo suppressed.
+    }
+    \label{d Feynman}
+\end{figure}
+
+This analysis also exploits contributions from D mixing.
+This is a slow process and the $\overline{D}^0$ decay (Fig. \ref{CF}) is Cabibbo favoured (CF) - the mixing contribution is negligible. However, the direct $D^0$ decay (Fig. \ref{DCS}) is doubly Cabibbo suppressed (DCS), and so $D^0 \rightarrow \overline{D}^0 \rightarrow f$ is a relevant contribution to the overall $D^0\rightarrow f$ rate.
+The two contributions to the $D^0$ decay rate are shown schematically in Fig. \ref{d mixing}.
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/dMixingDiagram.png}
+    \caption{The amplitudes contributing to $D^0\rightarrow K^+\pi^-\pi^-\pi^+$.
+        The interference between them is quantified by the charm mixing parameter Eq. \ref{Charm interference definition}.
+    }
+    \label{d mixing}
+\end{figure}
+
+The following notation is used for the $D^0\rightarrow f$ and $\overline{D}^0\rightarrow f$ amplitudes:
+\begin{equation}
+    \begin{aligned}
+        A(\mathbf{p}) \equiv \Braket{f_{\mathbf{p}} | \hat{H} | D^0} \\
+        B(\mathbf{p}) \equiv \Braket{f_{\mathbf{p}} | \hat{H} | \overline{D}^0}
+    \end{aligned}
+\end{equation}
+where $\mathbf{p}$ denotes a point in final state phase space.
+
+Interference between the direct (DCS) $D^0\rightarrow f$ and mixing $D^0\rightarrow \overline{D}^0 \rightarrow f$ amplitudes is described by the charm interference parameter (Eq. \ref{Charm interference}):
+\begin{equation}
+    \label{Charm interference definition}
+    Z_\Omega^f = \frac{\int_\Omega A(\mathbf{p})B^*(\mathbf{p}) d\Phi}{N_\Omega}
+\end{equation}
+where $\Omega$ is a region of phase space and $N_\Omega$ is a normalisation factor such that $0 \leq |Z_\Omega^f| \leq 1$.
+
+By writing the flavour eigenstates in terms of the mass eigenstates and expanding to third order in the (small) mixing parameters $x$ and $y$
+, we arrive at the time-dependent rate equations for $D^0$ and $\overline{D}^0$ decays:
+\begin{equation}
+    \label{approxDRate}
+    \Gamma(D^0(t) \rightarrow f) \approx \Biggl[ \mathcal{A}_\Omega^2
+        + \mathcal{A}_\Omega \mathcal{B}_\Omega \left( yRe(Z_\Omega^f) + xIm(Z_\Omega^f)\right)(\Gamma_Dt)
+        + \mathcal{B}_\Omega^2 \left( \frac{y^2 + x^2}{4} (\Gamma_Dt)^2 \right)
+        \Biggr] e^{-\Gamma_Dt}
+\end{equation}
+\begin{equation}
+    \label{approxDBarRate}
+    \Gamma(\overline{D}^0(t) \rightarrow f) \approx \mathcal{B}_\Omega^2 e^{-\Gamma_Dt}
+\end{equation}
+A full derivation can be found in [TODO].
+Dividing Eq.~\ref{approxDRate} by Eq.~\ref{approxDBarRate}, we arrive at Eq.~\ref{rateRatio}:
+\begin{equation}
+    \label{rateRatio}
+    \frac{\Gamma(D^0(t) \rightarrow f)}{\Gamma (\overline{D}^0(t) \rightarrow f)}
+    \approx  r_{D,\Omega}^2
+    + r_{D,\Omega} \left( yRe(Z_\Omega^f) + xIm(Z_\Omega^f)\right)(\Gamma_Dt)
+    + \frac{y^2 + x^2}{4} (\Gamma_Dt)^2
+\end{equation}
+where the ratio of DCS to CF amplitudes is defined as:
+\begin{equation}
+    \label{amplitudeRatio}
+    r_{D,\Omega} \equiv \frac{\mathcal{A}_\Omega}{\mathcal{B}_\Omega}
+\end{equation}
+Fitting to Eq. \ref{rateRatio} provides a constraint on $Z_\Omega^f$.
+
+Alternatively, $Z_\Omega^f$ can be taken as external input from charm threshold data (CLEO, BES-III).
+Previous studies have shown that combining charm threshold data with input from charm mixing (Eq. \ref{rateRatio}) results in vastly improved precision of both $Z_\Omega^f$ and $\gamma$, with a precision of a few degrees [TODO].
 
 \end{document}
