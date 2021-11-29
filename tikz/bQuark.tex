@@ -1,0 +1,24 @@
+\documentclass[convert]{standalone}
+
+\usepackage{tikz}
+\usepackage{standalone}
+\usepackage{tikz-feynman}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{feynman}
+        \vertex (b) {\(b\)};
+        \vertex[right=5cm of b] (c) {\(c\)};
+        \vertex[below right=1cm and 2.5cm of b] (v1);
+        \vertex[below right=1cm and 2cm of v1] (v2);
+        \vertex[above right=0.5cm and 1cm of v2] (uBar) {\(\overline{u}\)};
+        \vertex[below right=0.5cm and 1cm of v2] (s) {\(s\)};
+        \diagram* { {[edges=fermion]
+                (b) -- (v1) -- (c), (uBar) -- (v2) -- (s)},
+        (v1) -- [boson, edge label=\(W^-\)] (v2)
+        };
+    \end{feynman}
+\end{tikzpicture}
+
+\end{document}
