@@ -13,9 +13,9 @@ The efficiency $\epsilon(\mathbf{\psi}, t)$ is assumed to only be a function of 
 
 The efficiency is extracted from simulation, using LHCb Monte Carlo (MC) [TODO specify further].
 MC was generated for $D^* \rightarrow D^0(\rightarrow K^\pm \pi^\mp \pi^\pm \pi^\mp)\pi$ decays, using AmpGen[TODO] amplitude models to generate the $D\rightarrow K 3\pi$ events.
-It is assumed that the only difference between MC and the amplitude model used to generate it is the detector efficiency $\epsilon(\mathbf{psi}, t)$; Eq.~\ref{efficiency}.
+It is assumed that the only difference between MC and the amplitude model used to generate it is the detector efficiency $\epsilon(\mathbf{\psi}, t)$; Eq.~\ref{efficiency}.
 \begin{equation}
-    \epsilon(\mathbf{\psi}, t) = \frac{\Gamma^{\mathrm{MC}}(\mathbf{\psi}, t)}{\Gamma^{\mathrm{model}}}
+    \epsilon(\mathbf{\psi}, t) = \frac{\Gamma^{\mathrm{MC}}(\mathbf{\psi}, t)}{\Gamma^{\mathrm{model}}(\mathbf{\psi}, t)}
     \label{efficiency}
 \end{equation}
 
@@ -29,7 +29,7 @@ This space can be parameterised in several ways - the parameterisation chosen fo
     \label{CM Parameterisation}
     \begin{aligned}
         M(K^\pm\pi^\pm)\quad
-        M(\pi^\mp\pi^\mp)\\
+        M(\pi^\mp\pi^\mp) \\
         cos(\theta_+)\qquad
         cos(\theta_-)\qquad
         \phi
@@ -39,7 +39,7 @@ This space can be parameterised in several ways - the parameterisation chosen fo
 [TODO diagram of angles and stuff] These variables are defined in Fig.~[TODO] and ref [TODO].
 
 
-\section{Reweighting Strategy}
+\subsection{Reweighting Strategy}
 \begin{itemize}
     \item Find efficiency by reweighting MC to AmpGen
     \item MC and AmpGen samples
@@ -58,8 +58,73 @@ This space can be parameterised in several ways - the parameterisation chosen fo
     \item BDT Reweighter in each time bin
     \item Histogram division in each time bin
 \end{itemize}
+The basic strategy is to train a reweighter to weight the MC to the amplitude model (``AmpGen'') to correct for the detector efficiency.
+Since the detection efficiency approaches 0 at low decay times, a threshhold minimum time of time of $0.94\tau_D$ is used - any decays occurring before this time are discarded.
+The remaining decays are binned into three time bins, containing approximately equal events in MC.
+In each of these time bins, the phase space efficiency is corrected for using a reweighting BDT from the hep-ml[TODO] package.
+The decay time efficiency is found using a histogram division.
+The overall efficiency is then found by composing the two, as seen in Eq.~\ref{efficiency split}.
 
-\section{Validation}
+\begin{equation}
+    \epsilon(\mathbf{\psi}, t) = \epsilon(\mathbf{\psi}) \epsilon(t)
+    \label{efficiency split}
+\end{equation}
+
+\subsection{Data Sample}
+[TODO we've just ignored time here completely - hopefully that's ok]
+It is assumed that the efficiency is dependent only on phase space point, and not on the charge of the hadrons.
+As such, it is trained on a combination of $Dbar^0 \rightarrow K^+ \pi^- \pi^+ \pi^-$ (``RS'') and $D^0 \rightarrow K^+ \pi^- \pi^+ \pi^-$ (``WS'') events.
+It is assumed that the conjugate decays have the same phase space and efficiency structure. [but can we do something to check this, or do the reweighting with both...?].
+
+The relative amount of RS and WS to train on is found as follows.
+Denoting the RS and WS amplitudes as $A^{RS}$ and $A^{WS}$ respectively, we can write the distributions of generated and reconstructed as in Eq.~\ref{reco generated}:
+\begin{equation}
+    \begin{aligned}
+        A^{\mathrm{gen}}(\mathbf{\psi}) = \alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi})\quad \\
+        A^{\mathrm{reco}}(\mathbf{\psi}) = \epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))
+    \end{aligned}
+    \label{reco generated}
+\end{equation}
+Where our amplitude models $A$ give us the amplitude at each phase space point.
+
+We don't know the value of the constants $\alpha$ and $\beta$.
+Nonetheless, we can find the proportion of $A^{RS}$ and $A^{WS}$ to compare $A^\mathrm{reco}$ to in order to recover the efficiency.
+First, we note that it is sufficient to find the efficiency up to a multiplicative constant.
+The expression used to evaluate the efficiency is seen in Eq.~\ref{Efficiency estimate}.
+
+\begin{equation}
+        \epsilon(\mathbf{\psi}) \propto \frac{\epsilon(\mathbf{\psi})}{\int \epsilon(\mathbf{\psi}) d\mathbf{\psi}} = \frac{\epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))}{\alpha \int \epsilon(\mathbf{\psi}) d\mathbf{\psi}A^{RS}(\mathbf{\psi}) + \beta \int \epsilon(\mathbf{\psi}) d\mathbf{\psi}A^{WS}(\mathbf{\psi})}
+    \label{Efficiency estimate}
+\end{equation}
+
+The right hand side of Eq.~\ref{Efficiency estimate} equation is evalated as follows.
+First, the factors seen in Eq.~\ref{correction factors} are defined.
+\begin{equation}
+    \begin{aligned}
+        C_\alpha = \alpha \int \epsilon(\mathbf{\psi}, t) d\mathbf{\psi} \\
+        C_\beta = \beta \int \epsilon(\mathbf{\psi}, t) d\mathbf{\psi}
+    \end{aligned}
+    \label{correction factors}
+\end{equation}
+
+These can be evaluated using a Riemann sum, seen in Eq.~\ref{evaluating correction factors}.
+\begin{equation}
+    \begin{aligned}
+        C_\alpha = \alpha \int \epsilon(\mathbf{\psi}, t) A^{RS}\frac{1}{A^{RS}}d\mathbf{\psi} = \sum_{RS}\frac{1}{A^{RS}} \\
+        C_\beta = \beta \int \epsilon(\mathbf{\psi}, t)A^{WS} \frac{1}{A^{WS}} d\mathbf{\psi} = \sum_{WS}\frac{1}{A^{WS}}
+    \end{aligned}
+    \label{evaluating correction factors}
+\end{equation}
+
+Using these factors, we can rewrite Eq.~\ref{Efficiency estimate} as Eq.~\ref{efficiency c factors}:
+\begin{equation}
+        \epsilon(\mathbf{\psi}) \propto \frac{\epsilon(\mathbf{\psi})}{\int \epsilon(\mathbf{\psi}) d\mathbf{\psi}} = \frac{\epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))}{C_\alpha A^{RS} + C_\beta A^{WS}}
+    \label{efficiency c factors}
+\end{equation}
+
+This is the expression used when evaluating the efficiency - the numerator is the combination of the  RS + WS MC samples; the denominator is RS+WS AmpGen generated in the proportions given by $C_\alpha$ and $C_\beta$.
+
+\subsection{Validation}
 \begin{itemize}
     \item Projections
     \item Alternate projections
