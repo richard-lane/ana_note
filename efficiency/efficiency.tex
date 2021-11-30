@@ -93,7 +93,7 @@ First, we note that it is sufficient to find the efficiency up to a multiplicati
 The expression used to evaluate the efficiency is seen in Eq.~\ref{Efficiency estimate}.
 
 \begin{equation}
-        \epsilon(\mathbf{\psi}) \propto \frac{\epsilon(\mathbf{\psi})}{\int \epsilon(\mathbf{\psi}) d\mathbf{\psi}} = \frac{\epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))}{\alpha \int \epsilon(\mathbf{\psi}) d\mathbf{\psi}A^{RS}(\mathbf{\psi}) + \beta \int \epsilon(\mathbf{\psi}) d\mathbf{\psi}A^{WS}(\mathbf{\psi})}
+    \epsilon(\mathbf{\psi}) \propto \frac{\epsilon(\mathbf{\psi})}{\int \epsilon(\mathbf{\psi}) d\mathbf{\psi}} = \frac{\epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))}{\alpha \int \epsilon(\mathbf{\psi}) d\mathbf{\psi}A^{RS}(\mathbf{\psi}) + \beta \int \epsilon(\mathbf{\psi}) d\mathbf{\psi}A^{WS}(\mathbf{\psi})}
     \label{Efficiency estimate}
 \end{equation}
 
@@ -118,11 +118,52 @@ These can be evaluated using a Riemann sum, seen in Eq.~\ref{evaluating correcti
 
 Using these factors, we can rewrite Eq.~\ref{Efficiency estimate} as Eq.~\ref{efficiency c factors}:
 \begin{equation}
-        \epsilon(\mathbf{\psi}) \propto \frac{\epsilon(\mathbf{\psi})}{\int \epsilon(\mathbf{\psi}) d\mathbf{\psi}} = \frac{\epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))}{C_\alpha A^{RS} + C_\beta A^{WS}}
+    \epsilon(\mathbf{\psi}) \propto \frac{\epsilon(\mathbf{\psi})}{\int \epsilon(\mathbf{\psi}) d\mathbf{\psi}} = \frac{\epsilon(\mathbf{\psi})(\alpha A^{RS}(\mathbf{\psi}) + \beta A^{WS}(\mathbf{\psi}))}{C_\alpha A^{RS} + C_\beta A^{WS}}
     \label{efficiency c factors}
 \end{equation}
 
 This is the expression used when evaluating the efficiency - the numerator is the combination of the  RS + WS MC samples; the denominator is RS+WS AmpGen generated in the proportions given by $C_\alpha$ and $C_\beta$.
+
+\subsection{Cuts}
+Several cuts are applied to the MC sample before training the efficiency reweighters, detailed here.
+The variables used are defined in Table~\ref{cut vars}.
+
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{ | c | c | c |}
+        \hline
+        Parameter           & Description                                     & Criteria                                 \\
+        \hline
+        \hline
+        L0 Trigger Decision & Hadron L0 / Global L0 decision                  & either one == 1                          \\
+
+        HLT Decision        & HLT 1track or 2track decision                   & either one == 1                          \\
+
+        $D^0$ Mass          & D meson mass                                    & $1840.83 < M/MeV < 1888.83$              \\
+
+        $D^*$ - $D^0$ Mass  & D*-D meson mass difference                      & $139.3 < \Delta M/MeV < 152.0$           \\
+
+        IP$\chi^2$          & IP $\chi^2$                                     & $< 9.0$                                  \\
+
+        BKGCAT              & Background category                             & == 0                                     \\
+
+        $K_s$ mass cut      & $\pi^+\pi^-$ masses near the nominal $K_s$ mass & $ 487.614 < M(\pi^+\pi^-)/MeV < 507.614$ \\
+        \hline
+    \end{tabular}
+    \caption{Variables used when performing cuts to the MC samples used for the efficiency reweighting.}
+    \label{cut vars}
+    \centering
+\end{table}
+
+These cuts are visualised in Fig.~\ref{cuts hists}.
+\begin{figure}
+    \includegraphics[width=\textwidth]{img/cuts.png}
+    \centering
+    \caption{Cuts}
+    \label{cuts hists}
+\end{figure}
+
 
 \subsection{Validation}
 \begin{itemize}
